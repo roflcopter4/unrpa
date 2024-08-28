@@ -7,6 +7,7 @@ class ArchiveView:
 
     def __init__(self, archive: BinaryIO, offset: int, length: int, prefix: bytes):
         archive.seek(offset)
+        self.offset = offset
         self.name = archive.name
         self.remaining = length
         self.sources = [cast(io.BufferedIOBase, archive)]

@@ -24,7 +24,7 @@ from unrpa.errors import (
     AmbiguousArchiveError,
     UnknownArchiveError,
 )
-from unrpa.versions import official_rpa, alt, zix, unofficial_rpa
+from unrpa.versions import official_rpa, alt, zix, unofficial_rpa, rpa91
 from unrpa.versions.version import Version
 from unrpa.view import ArchiveView
 
@@ -73,6 +73,7 @@ class UnRPA:
         *alt.versions,
         *zix.versions,
         *unofficial_rpa.versions,
+        rpa91.versions,
     )
 
     provided_versions: FrozenSet[Type[Version]] = frozenset(ordered_versions)
@@ -206,6 +207,8 @@ class UnRPA:
         if not version:
             version = self.version() if self.version else self.detect_version()
 
+        normal_index : Dict[bytes, ComplexIndexEntry]
+        print(version)
         offset = 0
         key: Optional[int] = None
         if self.offset_and_key:

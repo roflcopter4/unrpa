@@ -1,5 +1,4 @@
 from typing import BinaryIO, Tuple, Optional, Type
-
 from unrpa.versions.version import ExtensionBasedVersion, HeaderBasedVersion, Version
 
 
