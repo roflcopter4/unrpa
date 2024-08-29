@@ -205,16 +205,17 @@ class UnRPA:
         self, archive: BinaryIO, version: Optional[Version] = None
     ) -> Dict[str, ComplexIndexEntry]:
         if not version:
-            version = self.version() if self.version else self.detect_version()
-
-        normal_index : Dict[bytes, ComplexIndexEntry]
+            version = self.version if self.version else self.detect_version()
         print(version)
-        offset = 0
-        key: Optional[int] = None
+
+        normal_index: Dict[bytes, ComplexIndexEntry]
+        offset: int
+        key: Optional[int]
         if self.offset_and_key:
             offset, key = self.offset_and_key
         else:
             offset, key = version.find_offset_and_key(archive)
+
         archive.seek(offset)
         index: Dict[bytes, IndexEntry] = pickle.loads(
             zlib.decompress(archive.read()), encoding="bytes"
